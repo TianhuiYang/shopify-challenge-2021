@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = "http://www.omdbapi.com/";
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export const getMovieByTitle = async (query) => {
+export const getMovieByTitle = async (query: string) => {
   return axios
     .get(`${BASE_URL}?s=${query}&type=movie&apikey=${API_KEY}`)
     .then((res) => {
@@ -15,7 +15,7 @@ export const getMovieByTitle = async (query) => {
     });
 };
 
-export const getMovieById = async (id) => {
+export const getMovieById = async (id: string) => {
     return axios
     .get(`${BASE_URL}?i=${id}&type=movie&apikey=${API_KEY}`)
     .then((res) => {
