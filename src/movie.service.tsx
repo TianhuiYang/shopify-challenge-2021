@@ -15,14 +15,3 @@ export const getMovieByTitle = async (query: string) => {
     });
 };
 
-export const getMovieById = async (id: string) => {
-    return axios
-    .get(`${BASE_URL}?i=${id}&type=movie&apikey=${API_KEY}`)
-    .then((res) => {
-      const movies = res.data.Search;
-      return !!movies ? movies : [];
-    })
-    .catch((err) => {
-      return err;
-    });
-};
