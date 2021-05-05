@@ -1,6 +1,5 @@
 import "./App.scss";
 import "./GlobalStyle.scss";
-import "./PolarisStyling.scss";
 import React, { useState, useCallback } from "react";
 import { getMovieByTitle } from "./movie.service";
 import { MovieModel } from "./models/movie.model";
@@ -19,9 +18,6 @@ import {
   Form,
   ButtonGroup,
   Caption,
-  Heading,
-  FormLayout,
-  DataTable,
   Stack,
 } from "@shopify/polaris";
 import { SearchMinor, InfoMinor, DeleteMinor } from "@shopify/polaris-icons";
@@ -30,6 +26,7 @@ import { Banners } from "./components/Banner";
 function App() {
   const MAX_NOMINATION_LENGTH = 5;
   const MAX_TITLE_LENGTH = 105;
+  const MAX_TITLE_LENGTH_NOMINATION = 85;
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResult, setSearchResult] = useState<MovieModel[]>([]);
@@ -42,6 +39,9 @@ function App() {
   const handleClearButtonClick = useCallback(() => {
     setSearchTerm("");
   }, []);
+  const handleClearSearchClick = useCallback(() => {
+    setSearchResult([]);
+  }, []);
 
   const searchMovie = async () => {
     setIsLoading(true);
@@ -50,9 +50,18 @@ function App() {
     console.log(searchResult);
   };
 
+  // TODO: move this to utils and include another parameter for checking breakpoint
   const trimMovieTitle = (title: string) => {
     if (title.length > MAX_TITLE_LENGTH) {
       const trimmedString = title.substring(0, MAX_TITLE_LENGTH);
+      return trimmedString.concat("...");
+    }
+    return title;
+  };
+
+  const trimMovieTitleNomination = (title: string) => {
+    if (title.length > MAX_TITLE_LENGTH_NOMINATION) {
+      const trimmedString = title.substring(0, MAX_TITLE_LENGTH_NOMINATION);
       return trimmedString.concat("...");
     }
     return title;
@@ -107,14 +116,15 @@ function App() {
                 </Form>
                 <Stack distribution="trailing">
                   <ButtonGroup>
-                    <Button plain monochrome onClick={handleClearButtonClick}>
-                      Clear
-                    </Button>
-                    <Button
-                      primary
-                      loading={isLoading ? true : false}
-                      onClick={searchMovie}
+                    {/* <Button
+                      plain
+                      removeUnderline
+                      monochrome
+                      onClick={handleClearButtonClick}
                     >
+                      Clear
+                    </Button> */}
+                    <Button primary loading={isLoading} onClick={searchMovie}>
                       Search
                     </Button>
                   </ButtonGroup>
@@ -123,37 +133,25 @@ function App() {
             </Card.Section>
           </Card>
         </Layout.Section>
-        {showBanner() ? (
-          <Layout.Section>
-            <Banners />
-          </Layout.Section>
-        ) : null}
+        <Banners showBanner={nominationList.length >= MAX_NOMINATION_LENGTH} />
         <Layout.Section>
-          <Card title="Search Results" sectioned>
-            {/* <DataTable
-              columnContentTypes={["text", "numeric"]}
-              headings={["Title", "Year"]}
-              rows={[
-                ["Emerald Silk Gown", "$875.00"],
-                ["Mauve Cashmere Scarf", "$230.00"],
-                [
-                  "Navy Merino Wool Blazer with khaki chinos and yellow belt",
-                  "$445.00",
-                ],
-              ]}
-            /> */}
+          <Card
+            title="Search Results"
+            sectioned
+            actions={[{ content: "Clear", onAction: handleClearSearchClick }]}
+          >
             {/* <p>Theses are the search results for "{searchTerm}"</p> */}
-            <ul className="search-results">
+            <ul>
               {searchResult.map((item) => {
                 return (
-                  <li className="search-results__items">
-                    <div className="search-results__items__content">
-                      <TextContainer spacing="tight">
-                        <p style={{ fontWeight: 400 }}>
+                  <li className="list-container">
+                    <div className="list-container__search-content">
+                      <h3>
+                        <TextStyle variation="strong">
                           {trimMovieTitle(item.Title)}
-                        </p>
-                        <Caption>{item.Year}</Caption>
-                      </TextContainer>
+                        </TextStyle>
+                      </h3>
+                      <Caption>{item.Year}</Caption>
                     </div>
                     <ButtonGroup>
                       <Button size="slim" icon={InfoMinor}></Button>
@@ -177,23 +175,28 @@ function App() {
         <Layout.Section secondary>
           <Card title="Nominations" sectioned>
             {/* <p>You have {5 - nominationList.length} nomination(s) left</p> */}
-            <ul className="nomination-list">
+            <ul>
               {nominationList.map((item) => {
                 return (
-                  <li className="nomination-list__items">
-                    <div className="nomination-list__items__content">
-                      <Caption>
-                        {trimMovieTitle(item.Title)} ({item.Year})
-                      </Caption>
+                  <li className="list-container">
+                    <div className="list-container__nomination-content">
+                      <h3>
+                        <TextStyle variation="strong">
+                          {trimMovieTitleNomination(item.Title)}
+                        </TextStyle>
+                      </h3>
+                      <Caption>{item.Year}</Caption>
                     </div>
-                    <Button
-                      plain
-                      size="slim"
-                      icon={DeleteMinor}
-                      onClick={() =>
-                        editNominationList(item, NOMINATION_ACTION.REMOVE)
-                      }
-                    ></Button>
+                    <ButtonGroup>
+                      <Button
+                        plain
+                        size="slim"
+                        icon={DeleteMinor}
+                        onClick={() =>
+                          editNominationList(item, NOMINATION_ACTION.REMOVE)
+                        }
+                      ></Button>
+                    </ButtonGroup>
                   </li>
                 );
               })}
