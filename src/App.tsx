@@ -19,12 +19,17 @@ import {
   Form,
   ButtonGroup,
   Caption,
+  Heading,
+  FormLayout,
+  DataTable,
+  Stack,
 } from "@shopify/polaris";
 import { SearchMinor, InfoMinor, DeleteMinor } from "@shopify/polaris-icons";
 import { Banners } from "./components/Banner";
 
 function App() {
   const MAX_NOMINATION_LENGTH = 5;
+  const MAX_TITLE_LENGTH = 105;
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResult, setSearchResult] = useState<MovieModel[]>([]);
@@ -36,14 +41,21 @@ function App() {
   const handleChange = useCallback((newValue) => setSearchTerm(newValue), []);
   const handleClearButtonClick = useCallback(() => {
     setSearchTerm("");
-    setSearchResult([]);
   }, []);
 
   const searchMovie = async () => {
-    handleClearButtonClick();
     setIsLoading(true);
     setSearchResult(await getMovieByTitle(searchTerm));
     setIsLoading(false);
+    console.log(searchResult);
+  };
+
+  const trimMovieTitle = (title: string) => {
+    if (title.length > MAX_TITLE_LENGTH) {
+      const trimmedString = title.substring(0, MAX_TITLE_LENGTH);
+      return trimmedString.concat("...");
+    }
+    return title;
   };
 
   const disableNominateButton = (movie: MovieModel) => {
@@ -70,52 +82,78 @@ function App() {
   return (
     <Page>
       <Layout>
-        <TextContainer>
-          <DisplayText size="large">Welcome to the Shoppies!</DisplayText>
-          <p>Nominate 5 movies for this years Shoppies Awards</p>
-        </TextContainer>
-      </Layout>
-      <TextStyle variation="subdued">Search for a movie</TextStyle>
-      <Layout>
         <Layout.Section>
-          <Form onSubmit={searchMovie}>
-            <TextField
-              label="Search for a movie"
-              labelHidden
-              value={searchTerm}
-              placeholder="eg. The Avengers"
-              onChange={handleChange}
-              prefix={<Icon source={SearchMinor} color="base" />}
-              clearButton
-              onClearButtonClick={handleClearButtonClick}
-              autoFocus
-              error={searchError}
-            />
-          </Form>
+          <TextContainer>
+            <DisplayText size="large">Welcome to the Shoppies!</DisplayText>
+            <p>Nominate 5 movies for this year's Shoppies Awards</p>
+          </TextContainer>
         </Layout.Section>
-        <Layout.Section secondary>
-          <Button
-            outline
-            loading={isLoading ? true : false}
-            onClick={searchMovie}
-          >
-            Search
-          </Button>
+        <Layout.Section>
+          <Card title="Movie Search">
+            <Card.Section>
+              <Stack spacing="loose" vertical>
+                <Form onSubmit={searchMovie}>
+                  <TextField
+                    label="Search for a movie by keyword or ID"
+                    value={searchTerm}
+                    placeholder='Search "The Avengers"'
+                    onChange={handleChange}
+                    prefix={<Icon source={SearchMinor} color="base" />}
+                    clearButton
+                    onClearButtonClick={handleClearButtonClick}
+                    autoFocus
+                    error={searchError}
+                  />
+                </Form>
+                <Stack distribution="trailing">
+                  <ButtonGroup>
+                    <Button plain monochrome onClick={handleClearButtonClick}>
+                      Clear
+                    </Button>
+                    <Button
+                      primary
+                      loading={isLoading ? true : false}
+                      onClick={searchMovie}
+                    >
+                      Search
+                    </Button>
+                  </ButtonGroup>
+                </Stack>
+              </Stack>
+            </Card.Section>
+          </Card>
         </Layout.Section>
-      </Layout>
-      {showBanner() ? <Banners /> : null}
-      <Layout>
+        {showBanner() ? (
+          <Layout.Section>
+            <Banners />
+          </Layout.Section>
+        ) : null}
         <Layout.Section>
           <Card title="Search Results" sectioned>
+            {/* <DataTable
+              columnContentTypes={["text", "numeric"]}
+              headings={["Title", "Year"]}
+              rows={[
+                ["Emerald Silk Gown", "$875.00"],
+                ["Mauve Cashmere Scarf", "$230.00"],
+                [
+                  "Navy Merino Wool Blazer with khaki chinos and yellow belt",
+                  "$445.00",
+                ],
+              ]}
+            /> */}
             {/* <p>Theses are the search results for "{searchTerm}"</p> */}
             <ul className="search-results">
               {searchResult.map((item) => {
                 return (
                   <li className="search-results__items">
                     <div className="search-results__items__content">
-                      <Caption>
-                        {item.Title} ({item.Year})
-                      </Caption>
+                      <TextContainer spacing="tight">
+                        <p style={{ fontWeight: 400 }}>
+                          {trimMovieTitle(item.Title)}
+                        </p>
+                        <Caption>{item.Year}</Caption>
+                      </TextContainer>
                     </div>
                     <ButtonGroup>
                       <Button size="slim" icon={InfoMinor}></Button>
@@ -145,12 +183,11 @@ function App() {
                   <li className="nomination-list__items">
                     <div className="nomination-list__items__content">
                       <Caption>
-                        {item.Title} ({item.Year})
+                        {trimMovieTitle(item.Title)} ({item.Year})
                       </Caption>
                     </div>
                     <Button
                       plain
-                      destructive
                       size="slim"
                       icon={DeleteMinor}
                       onClick={() =>

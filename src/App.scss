@@ -14,17 +14,20 @@
 .search-results {
   &__items {
     display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: 12px;
     &__content {
       width: 420px;
       padding-right: 12px;
-      height: 32px;
-      p {
-        margin: 4px 0;
-      }
+      // height: 32px;
+      // p {
+      //   margin: 4px 0;
+      // }
     }
-    button {
-      margin: 0;
-    }
+    // button {
+    //   margin: 0;
+    // }
   }
 }
 
