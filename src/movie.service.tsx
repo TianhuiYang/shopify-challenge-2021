@@ -15,3 +15,15 @@ export const getMovieByTitle = async (query: string) => {
     });
 };
 
+export const getMovieByID = async (ID: string) => {
+  return axios
+    .get(`${BASE_URL}?i=${ID}&type=movie&apikey=${API_KEY}`)
+    .then((res) => {
+      const movies = res.data;
+      return !!movies ? movies : [];
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+

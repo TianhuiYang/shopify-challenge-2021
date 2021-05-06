@@ -1,8 +1,8 @@
 import "./App.scss";
 import "./GlobalStyle.scss";
 import React, { useState, useCallback } from "react";
-import { getMovieByTitle } from "./movie.service";
-import { MovieModel } from "./models/movie.model";
+import { getMovieByTitle, getMovieByID } from "./movie.service";
+import { MovieModel, MovieSummaryModel } from "./models/movie.model";
 import { NOMINATION_ACTION } from "./models/nomination.model";
 
 import {
@@ -29,10 +29,10 @@ function App() {
   const MAX_TITLE_LENGTH_NOMINATION = 85;
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [searchResult, setSearchResult] = useState<MovieModel[]>([]);
+  const [searchResult, setSearchResult] = useState<MovieSummaryModel[]>([]);
   //TODO: include error handling
   const [searchError, setSearchError] = useState<string>("");
-  const [nominationList, setNominationList] = useState<MovieModel[]>([]);
+  const [nominationList, setNominationList] = useState<MovieSummaryModel[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange = useCallback((newValue) => setSearchTerm(newValue), []);
@@ -42,12 +42,21 @@ function App() {
   const handleClearSearchClick = useCallback(() => {
     setSearchResult([]);
   }, []);
+  const handleClearNominationClick = useCallback(() => {
+    setNominationList([]);
+  }, []);
 
   const searchMovie = async () => {
     setIsLoading(true);
     setSearchResult(await getMovieByTitle(searchTerm));
     setIsLoading(false);
     console.log(searchResult);
+  };
+
+  const fetchMovieDetails = async (movieId: string) => {
+    console.log(movieId);
+    console.log(await getMovieByID(movieId));
+    return await getMovieByID(movieId);
   };
 
   // TODO: move this to utils and include another parameter for checking breakpoint
@@ -67,12 +76,14 @@ function App() {
     return title;
   };
 
-  const disableNominateButton = (movie: MovieModel) => {
-    const isMovieNominated = nominationList.some((item) => item === movie);
+  const disableNominateButton = (movie: MovieSummaryModel) => {
+    const isMovieNominated = nominationList.some(
+      (nomination) => nomination.imdbID === movie.imdbID
+    );
     return isMovieNominated || nominationList.length === MAX_NOMINATION_LENGTH;
   };
 
-  const editNominationList = (movie: MovieModel, action: NOMINATION_ACTION) => {
+  const editNominationList = (movie: MovieSummaryModel, action: NOMINATION_ACTION) => {
     if (
       nominationList.length < MAX_NOMINATION_LENGTH &&
       action === NOMINATION_ACTION.ADD
@@ -116,14 +127,6 @@ function App() {
                 </Form>
                 <Stack distribution="trailing">
                   <ButtonGroup>
-                    {/* <Button
-                      plain
-                      removeUnderline
-                      monochrome
-                      onClick={handleClearButtonClick}
-                    >
-                      Clear
-                    </Button> */}
                     <Button primary loading={isLoading} onClick={searchMovie}>
                       Search
                     </Button>
@@ -133,34 +136,38 @@ function App() {
             </Card.Section>
           </Card>
         </Layout.Section>
-        <Banners showBanner={nominationList.length >= MAX_NOMINATION_LENGTH} />
+        <Banners showBanner={showBanner()} />
         <Layout.Section>
           <Card
             title="Search Results"
-            sectioned
             actions={[{ content: "Clear", onAction: handleClearSearchClick }]}
+            sectioned
           >
             {/* <p>Theses are the search results for "{searchTerm}"</p> */}
             <ul>
-              {searchResult.map((item) => {
+              {searchResult.map((movie) => {
                 return (
                   <li className="list-container">
                     <div className="list-container__search-content">
                       <h3>
                         <TextStyle variation="strong">
-                          {trimMovieTitle(item.Title)}
+                          {trimMovieTitle(movie.Title)}
                         </TextStyle>
                       </h3>
-                      <Caption>{item.Year}</Caption>
+                      <Caption>{movie.Year}</Caption>
                     </div>
                     <ButtonGroup>
-                      <Button size="slim" icon={InfoMinor}></Button>
+                      <Button
+                        size="slim"
+                        icon={InfoMinor}
+                        onClick={() => fetchMovieDetails(movie.imdbID)}
+                      ></Button>
                       <Button
                         size="slim"
                         primary
-                        disabled={disableNominateButton(item)}
+                        disabled={disableNominateButton(movie)}
                         onClick={() =>
-                          editNominationList(item, NOMINATION_ACTION.ADD)
+                          editNominationList(movie, NOMINATION_ACTION.ADD)
                         }
                       >
                         Nominate
@@ -173,19 +180,25 @@ function App() {
           </Card>
         </Layout.Section>
         <Layout.Section secondary>
-          <Card title="Nominations" sectioned>
+          <Card
+            title="Nominations"
+            actions={[
+              { content: "Clear", onAction: handleClearNominationClick },
+            ]}
+            sectioned
+          >
             {/* <p>You have {5 - nominationList.length} nomination(s) left</p> */}
             <ul>
-              {nominationList.map((item) => {
+              {nominationList.map((movie) => {
                 return (
                   <li className="list-container">
                     <div className="list-container__nomination-content">
                       <h3>
                         <TextStyle variation="strong">
-                          {trimMovieTitleNomination(item.Title)}
+                          {trimMovieTitleNomination(movie.Title)}
                         </TextStyle>
                       </h3>
-                      <Caption>{item.Year}</Caption>
+                      <Caption>{movie.Year}</Caption>
                     </div>
                     <ButtonGroup>
                       <Button
@@ -193,7 +206,7 @@ function App() {
                         size="slim"
                         icon={DeleteMinor}
                         onClick={() =>
-                          editNominationList(item, NOMINATION_ACTION.REMOVE)
+                          editNominationList(movie, NOMINATION_ACTION.REMOVE)
                         }
                       ></Button>
                     </ButtonGroup>
