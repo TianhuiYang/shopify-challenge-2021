@@ -1,0 +1,3 @@
+export const MAX_NOMINATION_LENGTH = 5;
+export const MAX_TITLE_LENGTH = 105;
+export const MAX_TITLE_LENGTH_NOMINATION = 85;
