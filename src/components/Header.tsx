@@ -4,10 +4,12 @@ import React from "react";
 export const Header = () => {
   return (
     <Layout.Section>
-      <TextContainer>
-        <DisplayText size="large">Welcome to the Shoppies!</DisplayText>
-        <p>Nominate 5 movies for this year's Shoppies Awards</p>
-      </TextContainer>
+      <div style={{ marginLeft: "12px" }}>
+        <TextContainer>
+          <DisplayText size="large">Welcome to the Shoppies!</DisplayText>
+          <p>Nominate 5 movies for this year's Shoppies Awards</p>
+        </TextContainer>
+      </div>
     </Layout.Section>
   );
 };

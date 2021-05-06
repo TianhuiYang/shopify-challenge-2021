@@ -4,11 +4,16 @@ import {
   Caption,
   Card,
   Layout,
+  Modal,
+  TextContainer,
   TextStyle,
+  Thumbnail,
 } from "@shopify/polaris";
-import { InfoMinor } from "@shopify/polaris-icons";
+import { InfoMinor, NoteMinor } from "@shopify/polaris-icons";
+import React, { useState } from "react";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
+import { getMovieByID } from "../movie.service";
 import { MAX_NOMINATION_LENGTH, MAX_TITLE_LENGTH } from "../utils/constants";
 
 type SearchResultsProps = {
@@ -27,6 +32,52 @@ export const SearchResults = ({
   searchResult,
   clearSearchResults,
 }: SearchResultsProps) => {
+  const [displayModalImage, setDisplayModalImage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [fullMovie, setFullMovie] = useState({
+    Title: "",
+    Year: "",
+    Rated: "",
+    Released: "",
+    Runtime: "",
+    Genre: "",
+    Director: "",
+    Writer: "",
+    Actors: "",
+    Plot: "",
+    Language: "",
+    Country: "",
+    Awards: "",
+    Poster: "",
+    Ratings: [{ Source: "", Value: "" }],
+    Metascore: "",
+    imdbRating: "",
+    imdbVotes: "",
+    imdbID: "",
+    Type: "",
+    DVD: "",
+    BoxOffice: "",
+    Production: "",
+    Website: "",
+    Response: "",
+  });
+  const [movieSummary, setMovieSummary] = useState({
+    Poster: "",
+    Title: "",
+    Type: "",
+    Year: "",
+    imdbID: "",
+  });
+
+  const setModalInformation = async (movie: MovieSummaryModel) => {
+    setShowModal(true);
+    setMovieSummary(movie);
+    setFullMovie(await getMovieByID(movie.imdbID));
+    setDisplayModalImage(movie.Poster !== "N/A");
+    console.log(movie);
+    console.log(fullMovie);
+  };
+
   const trimMovieTitle = (title: string) => {
     if (title.length > MAX_TITLE_LENGTH) {
       const trimmedString = title.substring(0, MAX_TITLE_LENGTH);
@@ -44,6 +95,57 @@ export const SearchResults = ({
 
   return (
     <Layout.Section>
+      <Modal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        title={movieSummary.Title}
+        primaryAction={{
+          content: "Nominate",
+          disabled: disableNominateButton(movieSummary),
+          onAction: () =>
+            editNominationList(movieSummary, NOMINATION_ACTION.ADD),
+        }}
+      >
+        <Modal.Section>
+          <div style={{ display: "flex", flexDirection: "row", gap: 16 }}>
+            {displayModalImage ? (
+              <img
+                style={{ maxWidth: "160px" }}
+                alt="Movie Image"
+                src={movieSummary.Poster}
+              />
+            ) : (
+              <Thumbnail source={NoteMinor} size="large" alt="Small document" />
+            )}
+            <TextContainer>
+              <p>
+                <TextStyle variation="strong">Released: </TextStyle>
+                {fullMovie.Released}
+              </p>
+              <p>
+                <TextStyle variation="strong">Genre: </TextStyle>
+                {fullMovie.Genre}
+              </p>
+              <p>
+                <TextStyle variation="strong">Production: </TextStyle>
+                {fullMovie.Production}
+              </p>
+              <p>
+                <TextStyle variation="strong">Director: </TextStyle>
+                {fullMovie.Director}
+              </p>
+              <p>
+                <TextStyle variation="strong">Boxoffice: </TextStyle>
+                {fullMovie.BoxOffice}
+              </p>
+              <p>
+                <TextStyle variation="strong">Awards: </TextStyle>
+                {fullMovie.Awards}
+              </p>
+            </TextContainer>
+          </div>
+        </Modal.Section>
+      </Modal>
       <Card
         title="Search Results"
         actions={[{ content: "Clear", onAction: clearSearchResults }]}
@@ -66,7 +168,7 @@ export const SearchResults = ({
                   <Button
                     size="slim"
                     icon={InfoMinor}
-                    // onClick={() => fetchMovieDetails(movie.imdbID)}
+                    onClick={() => setModalInformation(movie)}
                   ></Button>
                   <Button
                     size="slim"

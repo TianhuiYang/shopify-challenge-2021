@@ -62,24 +62,26 @@ function App() {
   };
 
   return (
-    <Page>
-      <Layout>
-        <Header />
-        <SearchBar searchMovie={searchMovie} isLoading={isLoading} />
-        <Banners showBanner={showBanner()} />
-        <SearchResults
-          searchResult={searchResult}
-          clearSearchResults={() => handleClearClick(COMPONENT.RESULTS)}
-          nominationList={nominationList}
-          editNominationList={editNominationList}
-        />
-        <Nominations
-          nominationList={nominationList}
-          editNominationList={editNominationList}
-          clearNominations={() => handleClearClick(COMPONENT.NOMINATIONS)}
-        />
-      </Layout>
-    </Page>
+    <div style={{ marginTop: "40px" }}>
+      <Page>
+        <Layout>
+          <Header />
+          <SearchBar searchMovie={searchMovie} isLoading={isLoading} />
+          <Banners showBanner={showBanner()} />
+          <SearchResults
+            searchResult={searchResult}
+            clearSearchResults={() => handleClearClick(COMPONENT.RESULTS)}
+            nominationList={nominationList}
+            editNominationList={editNominationList}
+          />
+          <Nominations
+            nominationList={nominationList}
+            editNominationList={editNominationList}
+            clearNominations={() => handleClearClick(COMPONENT.NOMINATIONS)}
+          />
+        </Layout>
+      </Page>
+    </div>
   );
 }
 
