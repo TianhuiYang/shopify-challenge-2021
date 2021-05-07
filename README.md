@@ -4,6 +4,19 @@
 
 A movie nomination site for the annual [Shoppies](https://drive.google.com/file/d/1lzhtiEc0yEim3iZHBFw62brcj61VLBO-/view) awards 🏆. Built for the Shopify frontend challenge.
 
+## Features
+
+All required features have been implemented. These entail search, nomination, and disabled button functionalities, as well as a banner when the maximum number of nominations have been reached.
+
+**Additional Features**
+
+- dynamic modal for displaying movie information (production, genre, etc.)
+- real-time autosaving of nominations to `localStorage`
+- empty state graphics and `clear` functionality for search results and nominations
+- error handling for movie searches
+- load animations
+- mobile responsive design
+
 ## Libraries & Technologies Used
 
 - React and Typescript
@@ -11,7 +24,6 @@ A movie nomination site for the annual [Shoppies](https://drive.google.com/file/
 - [styled-components](https://styled-components.com/) and [SASS](https://github.com/sass/sass) for styling
 - [Axios](https://github.com/axios/axios) for API requests
 - Heroku for hosting
-
 
 <!-- # Getting Started with Create React App
 
