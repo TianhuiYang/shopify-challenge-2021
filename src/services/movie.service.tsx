@@ -7,8 +7,7 @@ export const getMovieByTitle = async (query: string) => {
   return axios
     .get(`${BASE_URL}?s=${query}&type=movie&apikey=${API_KEY}`)
     .then((res) => {
-      const movies = res.data.Search;
-      return !!movies ? movies : [];
+      return res.data;
     })
     .catch((err) => {
       return err;
@@ -26,4 +25,3 @@ export const getMovieByID = async (ID: string) => {
       return err;
     });
 };
-

@@ -14,7 +14,7 @@ import { InfoMinor, NoteMinor, PlusMinor } from "@shopify/polaris-icons";
 import React, { useState } from "react";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
-import { getMovieByID } from "../movie.service";
+import { getMovieByID } from "../services/movie.service";
 import { MAX_NOMINATION_LENGTH, MAX_TITLE_LENGTH } from "../utils/constants";
 
 type SearchResultsProps = {
@@ -93,8 +93,8 @@ export const SearchResults = ({
     setMovieSummary(movie);
     setFullMovie(await getMovieByID(movie.imdbID));
     setDisplayModalImage(movie.Poster !== "N/A");
-    console.log(movie);
-    console.log(fullMovie);
+    // console.log(movie);
+    // console.log(fullMovie);
   };
 
   const trimMovieTitle = (title: string) => {

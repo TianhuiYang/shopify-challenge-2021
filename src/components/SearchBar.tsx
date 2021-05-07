@@ -14,9 +14,14 @@ import React, { useCallback, useState } from "react";
 type SearchBarProps = {
   searchMovie: (movie: string) => Promise<void>;
   isLoading: boolean;
+  error: string;
 };
 
-export const SearchBar = ({ searchMovie, isLoading }: SearchBarProps) => {
+export const SearchBar = ({
+  searchMovie,
+  isLoading,
+  error,
+}: SearchBarProps) => {
   const [query, setQuery] = useState<string>("");
   const updateQuery = useCallback((newValue) => setQuery(newValue), []);
   const handleClearButtonClick = useCallback(() => {
@@ -38,7 +43,7 @@ export const SearchBar = ({ searchMovie, isLoading }: SearchBarProps) => {
                 clearButton
                 onClearButtonClick={handleClearButtonClick}
                 autoFocus
-                // error={searchError}
+                error={error}
               />
             </Form>
             <Stack distribution="trailing">

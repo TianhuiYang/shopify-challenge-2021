@@ -2,7 +2,7 @@ import "./App.scss";
 import "./GlobalStyle.scss";
 import styled from "styled-components";
 import React, { useState } from "react";
-import { getMovieByTitle } from "./movie.service";
+import { getMovieByTitle } from "./services/movie.service";
 import { MovieModel, MovieSummaryModel } from "./models/movie.model";
 import { NOMINATION_ACTION } from "./models/nomination.model";
 import { Layout, Page } from "@shopify/polaris";
@@ -20,7 +20,6 @@ const AppContainer = styled.div`
 
 function App() {
   const [searchResult, setSearchResult] = useState<MovieSummaryModel[]>([]);
-  //TODO: include error handling
   const [searchError, setSearchError] = useState<string>("");
   const [nominationList, setNominationList] = useState<MovieSummaryModel[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -35,10 +34,16 @@ function App() {
   };
 
   const searchMovie = async (movie: string) => {
+    setSearchError("");
     setIsLoading(true);
-    setSearchResult(await getMovieByTitle(movie));
+    const res = await getMovieByTitle(movie);
+    if (res.Response === "True") {
+      setSearchResult(res.Search);
+    } else {
+      setSearchError(res.Error);
+      setSearchResult([]);
+    }
     setIsLoading(false);
-    console.log(searchResult);
   };
 
   const editNominationList = (
@@ -65,7 +70,11 @@ function App() {
       <Page>
         <Layout>
           <Header />
-          <SearchBar searchMovie={searchMovie} isLoading={isLoading} />
+          <SearchBar
+            searchMovie={searchMovie}
+            isLoading={isLoading}
+            error={searchError}
+          />
           <Banners showBanner={showBanner()} />
           <SearchResults
             searchResult={searchResult}
