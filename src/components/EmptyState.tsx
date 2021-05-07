@@ -27,6 +27,7 @@ export const EmptyState = ({ component }: EmptyStateProps) => {
       <img
         style={{ maxWidth: "100px", marginTop: "32px", marginBottom: "32px" }}
         src={imageURL}
+        alt="Document icon"
       />
       <p>{"Your " + headingKeyword + " will appear here."}</p>
     </EmptyStateContainer>

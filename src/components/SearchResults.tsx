@@ -135,7 +135,7 @@ export const SearchResults = ({
               {displayModalImage ? (
                 <img
                   style={{ maxWidth: "160px" }}
-                  alt="Movie Image"
+                  alt="Movie poster"
                   src={movieSummary.Poster}
                 />
               ) : (
