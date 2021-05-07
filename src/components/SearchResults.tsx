@@ -93,8 +93,6 @@ export const SearchResults = ({
     setMovieSummary(movie);
     setFullMovie(await getMovieByID(movie.imdbID));
     setDisplayModalImage(movie.Poster !== "N/A");
-    // console.log(movie);
-    // console.log(fullMovie);
   };
 
   const trimMovieTitle = (title: string) => {
@@ -180,6 +178,9 @@ export const SearchResults = ({
         actions={[{ content: "Clear", onAction: clearSearchResults }]}
         sectioned
       >
+        {!!searchResult.length ? null : (
+          <p>Your search results will appear here.</p>
+        )}
         {/* <p>Theses are the search results for "{searchTerm}"</p> */}
         <ul>
           {searchResult.map((movie) => {

@@ -41,6 +41,9 @@ export const Nominations = ({
         actions={[{ content: "Clear", onAction: clearNominations }]}
         sectioned
       >
+        {!!nominationList.length ? null : (
+          <p>Your nominations will appear here.</p>
+        )}
         {/* <p>You have {5 - nominationList.length} nomination(s) left</p> */}
         <ul>
           {nominationList.map((movie) => {
