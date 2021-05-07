@@ -177,13 +177,16 @@ export const SearchResults = ({
       </Modal>
       <Card
         title="Search Results"
-        actions={[{ content: "Clear", onAction: clearSearchResults }]}
+        actions={
+          !!searchResult.length
+            ? [{ content: "Clear", onAction: clearSearchResults }]
+            : []
+        }
         sectioned
       >
-        {/* {!!searchResult.length ? null : (
-          <p>Your search results will appear here.</p>
-        )} */}
-        {!!searchResult.length ? null : (
+        {!!searchResult.length ? (
+          <MobileDisplay><Caption>Click the movie title to learn more.</Caption></MobileDisplay>
+        ) : (
           <EmptyState component={COMPONENT.RESULTS} />
         )}
         {/* <p>Theses are the search results for "{searchTerm}"</p> */}

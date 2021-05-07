@@ -40,7 +40,11 @@ export const Nominations = ({
     <Layout.Section secondary>
       <Card
         title="Nominations"
-        actions={[{ content: "Clear", onAction: clearNominations }]}
+        actions={
+          !!nominationList.length
+            ? [{ content: "Clear", onAction: clearNominations }]
+            : []
+        }
         sectioned
       >
         {!!nominationList.length ? null : (

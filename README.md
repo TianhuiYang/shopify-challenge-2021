@@ -1,4 +1,19 @@
-# Getting Started with Create React App
+# The Shoppies
+
+**[Check out the hosted site here!](https://tianhui-yang-shopify-challenge.herokuapp.com/)**
+
+A movie nomination site for the annual [Shoppies](https://drive.google.com/file/d/1lzhtiEc0yEim3iZHBFw62brcj61VLBO-/view) awards 🏆. Built for the Shopify frontend challenge.
+
+## Libraries & Technologies Used
+
+- React and Typescript
+- [Polaris](https://polaris.shopify.com/components/get-started) for components and icons
+- [styled-components](https://styled-components.com/) and [SASS](https://github.com/sass/sass) for styling
+- [Axios](https://github.com/axios/axios) for API requests
+- Heroku for hosting
+
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +82,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->

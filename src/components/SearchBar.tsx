@@ -42,7 +42,7 @@ export const SearchBar = ({
                 prefix={<Icon source={SearchMinor} color="base" />}
                 clearButton
                 onClearButtonClick={handleClearButtonClick}
-                autoFocus
+                autoFocus={false}
                 error={error}
               />
             </Form>
