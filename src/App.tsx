@@ -1,7 +1,8 @@
 import "./App.scss";
 import "./GlobalStyle.scss";
+import styled from "styled-components";
 import React, { useState } from "react";
-import { getMovieByTitle, getMovieByID } from "./movie.service";
+import { getMovieByTitle } from "./movie.service";
 import { MovieModel, MovieSummaryModel } from "./models/movie.model";
 import { NOMINATION_ACTION } from "./models/nomination.model";
 import { Layout, Page } from "@shopify/polaris";
@@ -12,6 +13,10 @@ import { MAX_NOMINATION_LENGTH } from "./utils/constants";
 import { SearchResults } from "./components/SearchResults";
 import { Nominations } from "./components/Nominations";
 import { COMPONENT } from "./models/component.model";
+
+const AppContainer = styled.div`
+  margin-top: 40px;
+`;
 
 function App() {
   const [searchResult, setSearchResult] = useState<MovieSummaryModel[]>([]);
@@ -36,12 +41,6 @@ function App() {
     console.log(searchResult);
   };
 
-  const fetchMovieDetails = async (movieId: string) => {
-    console.log(movieId);
-    console.log(await getMovieByID(movieId));
-    return await getMovieByID(movieId);
-  };
-
   const editNominationList = (
     movie: MovieSummaryModel,
     action: NOMINATION_ACTION
@@ -62,7 +61,7 @@ function App() {
   };
 
   return (
-    <div style={{ marginTop: "40px" }}>
+    <AppContainer>
       <Page>
         <Layout>
           <Header />
@@ -81,7 +80,7 @@ function App() {
           />
         </Layout>
       </Page>
-    </div>
+    </AppContainer>
   );
 }
 

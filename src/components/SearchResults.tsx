@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import {
   Button,
   ButtonGroup,
@@ -9,7 +10,7 @@ import {
   TextStyle,
   Thumbnail,
 } from "@shopify/polaris";
-import { InfoMinor, NoteMinor } from "@shopify/polaris-icons";
+import { InfoMinor, NoteMinor, PlusMinor } from "@shopify/polaris-icons";
 import React, { useState } from "react";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
@@ -25,6 +26,24 @@ type SearchResultsProps = {
   searchResult: MovieSummaryModel[];
   clearSearchResults: () => void;
 };
+
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+`;
+
+const DesktopDisplay = styled.div`
+  @media (max-width: 520px) {
+    display: none;
+  }
+`;
+
+const MobileDisplay = styled.div`
+  @media (min-width: 520px) {
+    display: none;
+  }
+`;
 
 export const SearchResults = ({
   nominationList,
@@ -93,6 +112,11 @@ export const SearchResults = ({
     return isMovieNominated || nominationList.length === MAX_NOMINATION_LENGTH;
   };
 
+  const modalOnAction = () => {
+    editNominationList(movieSummary, NOMINATION_ACTION.ADD);
+    setShowModal(false);
+  };
+
   return (
     <Layout.Section>
       <Modal
@@ -102,21 +126,26 @@ export const SearchResults = ({
         primaryAction={{
           content: "Nominate",
           disabled: disableNominateButton(movieSummary),
-          onAction: () =>
-            editNominationList(movieSummary, NOMINATION_ACTION.ADD),
+          onAction: () => modalOnAction(),
         }}
       >
         <Modal.Section>
-          <div style={{ display: "flex", flexDirection: "row", gap: 16 }}>
-            {displayModalImage ? (
-              <img
-                style={{ maxWidth: "160px" }}
-                alt="Movie Image"
-                src={movieSummary.Poster}
-              />
-            ) : (
-              <Thumbnail source={NoteMinor} size="large" alt="Small document" />
-            )}
+          <ModalContainer>
+            <DesktopDisplay>
+              {displayModalImage ? (
+                <img
+                  style={{ maxWidth: "160px" }}
+                  alt="Movie Image"
+                  src={movieSummary.Poster}
+                />
+              ) : (
+                <Thumbnail
+                  source={NoteMinor}
+                  size="large"
+                  alt="Small document"
+                />
+              )}
+            </DesktopDisplay>
             <TextContainer>
               <p>
                 <TextStyle variation="strong">Released: </TextStyle>
@@ -143,7 +172,7 @@ export const SearchResults = ({
                 {fullMovie.Awards}
               </p>
             </TextContainer>
-          </div>
+          </ModalContainer>
         </Modal.Section>
       </Modal>
       <Card
@@ -164,23 +193,38 @@ export const SearchResults = ({
                   </h3>
                   <Caption>{movie.Year}</Caption>
                 </div>
-                <ButtonGroup>
-                  <Button
-                    size="slim"
-                    icon={InfoMinor}
-                    onClick={() => setModalInformation(movie)}
-                  ></Button>
-                  <Button
-                    size="slim"
-                    primary
-                    disabled={disableNominateButton(movie)}
-                    onClick={() =>
-                      editNominationList(movie, NOMINATION_ACTION.ADD)
-                    }
-                  >
-                    Nominate
-                  </Button>
-                </ButtonGroup>
+                <DesktopDisplay>
+                  <ButtonGroup>
+                    <Button
+                      size="slim"
+                      icon={InfoMinor}
+                      onClick={() => setModalInformation(movie)}
+                    ></Button>
+                    <Button
+                      size="slim"
+                      primary
+                      disabled={disableNominateButton(movie)}
+                      onClick={() =>
+                        editNominationList(movie, NOMINATION_ACTION.ADD)
+                      }
+                    >
+                      Nominate
+                    </Button>
+                  </ButtonGroup>
+                </DesktopDisplay>
+                <MobileDisplay>
+                  <ButtonGroup>
+                    <Button
+                      size="slim"
+                      primary
+                      icon={PlusMinor}
+                      disabled={disableNominateButton(movie)}
+                      onClick={() =>
+                        editNominationList(movie, NOMINATION_ACTION.ADD)
+                      }
+                    ></Button>
+                  </ButtonGroup>
+                </MobileDisplay>
               </li>
             );
           })}
