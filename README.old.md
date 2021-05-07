@@ -1,1 +1,0 @@
-# shopify-dev-challenge-2021

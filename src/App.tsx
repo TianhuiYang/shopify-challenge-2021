@@ -2,7 +2,7 @@ import "./App.scss";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { getMovieByTitle } from "./services/movie.service";
-import { MovieModel, MovieSummaryModel } from "./models/movie.model";
+import { MovieSummaryModel } from "./models/movie.model";
 import { NOMINATION_ACTION } from "./models/nomination.model";
 import { Layout, Page } from "@shopify/polaris";
 import { Banners } from "./components/Banner";

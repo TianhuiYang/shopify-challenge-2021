@@ -8,9 +8,11 @@ import {
 } from "@shopify/polaris";
 import { DeleteMinor } from "@shopify/polaris-icons";
 import React from "react";
+import { COMPONENT } from "../models/component.model";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
 import { MAX_TITLE_LENGTH_NOMINATION } from "../utils/constants";
+import { EmptyState } from "./EmptyState";
 
 type SearchResultsProps = {
   clearNominations: () => void;
@@ -42,7 +44,7 @@ export const Nominations = ({
         sectioned
       >
         {!!nominationList.length ? null : (
-          <p>Your nominations will appear here.</p>
+          <EmptyState component={COMPONENT.NOMINATIONS} />
         )}
         {/* <p>You have {5 - nominationList.length} nomination(s) left</p> */}
         <ul>

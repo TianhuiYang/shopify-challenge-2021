@@ -33,7 +33,7 @@ export const SearchBar = ({
       <Card title="Movie Search">
         <Card.Section>
           <Stack spacing="loose" vertical>
-            <Form onSubmit={() => searchMovie(query)}>
+            <Form autoComplete={false} onSubmit={() => searchMovie(query)}>
               <TextField
                 label="Search for a movie by keyword"
                 value={query}

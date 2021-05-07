@@ -16,6 +16,8 @@ import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
 import { getMovieByID } from "../services/movie.service";
 import { MAX_NOMINATION_LENGTH, MAX_TITLE_LENGTH } from "../utils/constants";
+import { EmptyState } from "./EmptyState";
+import { COMPONENT } from "../models/component.model";
 
 type SearchResultsProps = {
   nominationList: MovieSummaryModel[];
@@ -178,15 +180,22 @@ export const SearchResults = ({
         actions={[{ content: "Clear", onAction: clearSearchResults }]}
         sectioned
       >
-        {!!searchResult.length ? null : (
+        {/* {!!searchResult.length ? null : (
           <p>Your search results will appear here.</p>
+        )} */}
+        {!!searchResult.length ? null : (
+          <EmptyState component={COMPONENT.RESULTS} />
         )}
         {/* <p>Theses are the search results for "{searchTerm}"</p> */}
         <ul>
           {searchResult.map((movie) => {
             return (
               <li className="list-container">
-                <div className="list-container__search-content">
+                <div
+                  className="list-container__search-content"
+                  onClick={() => setModalInformation(movie)}
+                  style={{ cursor: "pointer" }}
+                >
                   <h3>
                     <TextStyle variation="strong">
                       {trimMovieTitle(movie.Title)}
