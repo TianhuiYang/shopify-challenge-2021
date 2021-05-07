@@ -6,6 +6,9 @@
   &__search-content {
     padding-right: 12px;
     width: 65%;
+    @media (max-width: 520px) {
+      width: 85%;
+    }
   }
   &__nomination-content {
     padding-right: 12px;

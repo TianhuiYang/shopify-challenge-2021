@@ -1,7 +1,6 @@
 import "./App.scss";
-import "./GlobalStyle.scss";
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getMovieByTitle } from "./services/movie.service";
 import { MovieModel, MovieSummaryModel } from "./models/movie.model";
 import { NOMINATION_ACTION } from "./models/nomination.model";
@@ -13,6 +12,7 @@ import { MAX_NOMINATION_LENGTH } from "./utils/constants";
 import { SearchResults } from "./components/SearchResults";
 import { Nominations } from "./components/Nominations";
 import { COMPONENT } from "./models/component.model";
+import { editLocalStorage, localNominationList } from "./utils/localStorage";
 
 const AppContainer = styled.div`
   margin-top: 40px;
@@ -27,6 +27,7 @@ function App() {
   const handleClearClick = (component: COMPONENT) => {
     if (component === COMPONENT.NOMINATIONS) {
       setNominationList([]);
+      editLocalStorage([]);
     }
     if (component === COMPONENT.RESULTS) {
       setSearchResult([]);
@@ -50,20 +51,29 @@ function App() {
     movie: MovieSummaryModel,
     action: NOMINATION_ACTION
   ) => {
+    let newNominationList = nominationList;
     if (
       nominationList.length < MAX_NOMINATION_LENGTH &&
       action === NOMINATION_ACTION.ADD
     ) {
-      setNominationList(nominationList.concat(movie));
+      newNominationList = nominationList.concat(movie);
+    } else if (!!nominationList.length && action === NOMINATION_ACTION.REMOVE) {
+      newNominationList = nominationList.filter((item) => item !== movie);
     }
-    if (!!nominationList.length && action === NOMINATION_ACTION.REMOVE) {
-      setNominationList(nominationList.filter((item) => item !== movie));
-    }
+    editLocalStorage(newNominationList);
+    setNominationList(newNominationList);
   };
 
   const showBanner = () => {
     return nominationList.length >= MAX_NOMINATION_LENGTH;
   };
+
+  useEffect(() => {
+    const localData = localNominationList();
+    if (!!localData) {
+      setNominationList(localData);
+    }
+  }, []);
 
   return (
     <AppContainer>

@@ -35,7 +35,7 @@ export const SearchBar = ({
           <Stack spacing="loose" vertical>
             <Form onSubmit={() => searchMovie(query)}>
               <TextField
-                label="Search for a movie by keyword or ID"
+                label="Search for a movie by keyword"
                 value={query}
                 placeholder='Search "The Avengers"'
                 onChange={updateQuery}
