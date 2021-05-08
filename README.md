@@ -1,6 +1,6 @@
 # The Shoppies
 
-**[Check out the hosted site here!](https://tianhui-yang-shopify-challenge.herokuapp.com/)**
+**[Check out the hosted site here!](https://tianhui-yang-shopify.netlify.app/)**
 
 A movie nomination site for the annual [Shoppies](https://drive.google.com/file/d/1lzhtiEc0yEim3iZHBFw62brcj61VLBO-/view) awards 🏆. Built for the Shopify frontend challenge.
 
@@ -23,7 +23,15 @@ All required features have been implemented. These entail search, nomination, an
 - [Polaris](https://polaris.shopify.com/components/get-started) for components and icons
 - [styled-components](https://styled-components.com/) and [SASS](https://github.com/sass/sass) for styling
 - [Axios](https://github.com/axios/axios) for API requests
-- Heroku for hosting
+- Netlify for hosting
+
+## Installation
+To run the project locally, run the following commands:
+```
+npm i
+npm start
+```
+Note: this assumes `node` is installed
 
 <!-- # Getting Started with Create React App
 
