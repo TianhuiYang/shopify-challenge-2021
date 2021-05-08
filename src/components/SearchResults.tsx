@@ -10,7 +10,7 @@ import {
   TextStyle,
   Thumbnail,
 } from "@shopify/polaris";
-import { InfoMinor, NoteMinor, PlusMinor } from "@shopify/polaris-icons";
+import { NoteMinor, PlusMinor } from "@shopify/polaris-icons";
 import React, { useState } from "react";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
@@ -45,6 +45,12 @@ const MobileDisplay = styled.div`
   @media (min-width: 520px) {
     display: none;
   }
+`;
+
+const ImgContainer = styled.div`
+  width: 100px;
+  height: 120px;
+  margin: 4px 32px 4px 0;
 `;
 
 export const SearchResults = ({
@@ -195,53 +201,73 @@ export const SearchResults = ({
         <ul>
           {searchResult.map((movie) => {
             return (
-              <li className="list-container">
-                <div
-                  className="list-container__search-content"
-                  onClick={() => setModalInformation(movie)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <h3>
+              <li className="searchResultsContainer">
+                <DesktopDisplay>
+                  {" "}
+                  {movie.Poster !== "N/A" ? (
+                    <ImgContainer>
+                      <img
+                        style={{
+                          borderRadius: "10px",
+                          width: "100px",
+                          height: "120px",
+                          objectFit: "cover",
+                        }}
+                        alt="Movie poster"
+                        src={movie.Poster}
+                      />
+                    </ImgContainer>
+                  ) : (
+                    <ImgContainer>
+                      <Thumbnail
+                        source={NoteMinor}
+                        size="large"
+                        alt="Small document"
+                      />
+                    </ImgContainer>
+                  )}
+                </DesktopDisplay>
+                <div className="searchResultsContainer__content">
+                  <div className="searchResultsContainer__content__heading">
                     <TextStyle variation="strong">
                       {trimMovieTitle(movie.Title)}
                     </TextStyle>
-                  </h3>
-                  <Caption>{movie.Year}</Caption>
+                    <Caption>{movie.Year}</Caption>
+                  </div>
+                  <DesktopDisplay>
+                    <ButtonGroup>
+                      <Button
+                        size="slim"
+                        onClick={() => setModalInformation(movie)}
+                      >
+                        Learn more
+                      </Button>
+                      <Button
+                        size="slim"
+                        primary
+                        disabled={disableNominateButton(movie)}
+                        onClick={() =>
+                          editNominationList(movie, NOMINATION_ACTION.ADD)
+                        }
+                      >
+                        Nominate
+                      </Button>
+                    </ButtonGroup>
+                  </DesktopDisplay>
+                  <MobileDisplay>
+                    <ButtonGroup>
+                      <Button
+                        size="slim"
+                        primary
+                        icon={PlusMinor}
+                        disabled={disableNominateButton(movie)}
+                        onClick={() =>
+                          editNominationList(movie, NOMINATION_ACTION.ADD)
+                        }
+                      ></Button>
+                    </ButtonGroup>
+                  </MobileDisplay>
                 </div>
-                <DesktopDisplay>
-                  <ButtonGroup>
-                    <Button
-                      size="slim"
-                      // icon={InfoMinor}
-                      onClick={() => setModalInformation(movie)}
-                    >
-                      Learn more
-                    </Button>
-                    <Button
-                      size="slim"
-                      primary
-                      disabled={disableNominateButton(movie)}
-                      onClick={() =>
-                        editNominationList(movie, NOMINATION_ACTION.ADD)
-                      }
-                    >
-                      Nominate
-                    </Button>
-                  </ButtonGroup>
-                </DesktopDisplay>
-                <MobileDisplay>
-                  <ButtonGroup>
-                    <Button
-                      size="slim"
-                      primary
-                      icon={PlusMinor}
-                      disabled={disableNominateButton(movie)}
-                      onClick={() =>
-                        editNominationList(movie, NOMINATION_ACTION.ADD)
-                      }
-                    ></Button>
-                  </ButtonGroup>
-                </MobileDisplay>
               </li>
             );
           })}

@@ -3,13 +3,6 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 16px;
-  &__search-content {
-    padding-right: 12px;
-    width: 65%;
-    @media (max-width: 520px) {
-      width: 85%;
-    }
-  }
   &__nomination-content {
     padding-right: 12px;
     width: 85%;
@@ -20,4 +13,29 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.searchResultsContainer {
+  display: flex;
+  margin: 12px 0;
+  &__content {
+    margin-top: 12px;
+    &__heading {
+      margin-bottom: 12px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    &__content {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-top: 16px;
+      &__heading {
+        padding-right: 12px;
+        width: 85%;
+      }
+    }
+  }
 }
