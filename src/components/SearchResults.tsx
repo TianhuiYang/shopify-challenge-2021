@@ -185,7 +185,9 @@ export const SearchResults = ({
         sectioned
       >
         {!!searchResult.length ? (
-          <MobileDisplay><Caption>Click the movie title to learn more.</Caption></MobileDisplay>
+          <MobileDisplay>
+            <Caption>Click the movie title to learn more.</Caption>
+          </MobileDisplay>
         ) : (
           <EmptyState component={COMPONENT.RESULTS} />
         )}
@@ -210,9 +212,11 @@ export const SearchResults = ({
                   <ButtonGroup>
                     <Button
                       size="slim"
-                      icon={InfoMinor}
+                      // icon={InfoMinor}
                       onClick={() => setModalInformation(movie)}
-                    ></Button>
+                    >
+                      Learn more
+                    </Button>
                     <Button
                       size="slim"
                       primary

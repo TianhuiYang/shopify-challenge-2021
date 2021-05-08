@@ -43,7 +43,7 @@ export const SearchBar = ({
                 clearButton
                 onClearButtonClick={handleClearButtonClick}
                 autoFocus={false}
-                error={error}
+                error={!!query ? error : ""}
               />
             </Form>
             <Stack distribution="trailing">

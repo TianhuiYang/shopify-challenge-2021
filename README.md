@@ -12,8 +12,8 @@ All required features have been implemented. These entail search, nomination, an
 
 - dynamic modal for displaying movie information (production, genre, etc.)
 - real-time autosaving of nominations to `localStorage`
-- empty state graphics and `clear` functionality for search results and nominations
 - error handling for movie searches
+- empty state graphics and `clear` functionality for search results and nominations
 - load animations
 - mobile responsive design
 
