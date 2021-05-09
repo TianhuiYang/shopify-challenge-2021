@@ -16,21 +16,25 @@ All required features have been implemented. These entail search, nomination, an
 - empty state graphics and `clear` functionality for search results and nominations
 - load animations
 - mobile responsive design
+- text trimming to ensure a fluid UI
 
-## Libraries & Technologies Used
+## Technologies & Libraries
 
 - React and Typescript
-- [Polaris](https://polaris.shopify.com/components/get-started) for components and icons
+- [Polaris](https://polaris.shopify.com/components/get-started) components and icons
 - [styled-components](https://styled-components.com/) and [SASS](https://github.com/sass/sass) for styling
-- [Axios](https://github.com/axios/axios) for API requests
+- [Axios](https://github.com/axios/axios) for the [OMDb](http://www.omdbapi.com/) API requests
 - Netlify for hosting
 
 ## Installation
+
 To run the project locally, run the following commands:
+
 ```
 npm i
 npm start
 ```
+
 Note: this assumes `node` is installed
 
 <!-- # Getting Started with Create React App

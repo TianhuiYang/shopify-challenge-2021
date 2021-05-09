@@ -4,7 +4,7 @@ import React from "react";
 export const Header = () => {
   return (
     <Layout.Section>
-      <div style={{ marginLeft: "12px" }}>
+      <div style={{ marginLeft: "12px", marginBottom: "12px" }}>
         <TextContainer>
           <DisplayText size="large">Welcome to the Shoppies!</DisplayText>
           <p>
