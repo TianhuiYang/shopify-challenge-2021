@@ -15,7 +15,11 @@ import { COMPONENT } from "./models/component.model";
 import { editLocalStorage, localNominationList } from "./utils/localStorage";
 
 const AppContainer = styled.div`
-  margin-top: 40px;
+  margin-top: 60px;
+
+  @media (max-width: 520px) {
+    margin-top: 24px;
+  }
 `;
 
 function App() {
