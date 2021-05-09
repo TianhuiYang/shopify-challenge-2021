@@ -4,13 +4,13 @@ import {
   ButtonGroup,
   Caption,
   Card,
+  Icon,
   Layout,
   Modal,
   TextContainer,
   TextStyle,
-  Thumbnail,
 } from "@shopify/polaris";
-import { NoteMinor, PlusMinor } from "@shopify/polaris-icons";
+import { NoteMajor, PlusMinor } from "@shopify/polaris-icons";
 import React, { useState } from "react";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
@@ -51,6 +51,25 @@ const ImgContainer = styled.div`
   width: 100px;
   height: 120px;
   margin: 4px 32px 4px 0;
+`;
+
+const NoPosterImgContainer = styled.div`
+  width: 100px;
+  height: 120px;
+  margin: 4px 32px 4px 0;
+  outline: 1px solid lightGrey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const NoPosterImgModal = styled.div`
+  width: 140px;
+  height: 100%;
+  outline: 1px solid lightGrey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const SearchResults = ({
@@ -145,11 +164,9 @@ export const SearchResults = ({
                   src={movieSummary.Poster}
                 />
               ) : (
-                <Thumbnail
-                  source={NoteMinor}
-                  size="large"
-                  alt="Small document"
-                />
+                <NoPosterImgModal>
+                  <Icon source={NoteMajor} color="subdued" />
+                </NoPosterImgModal>
               )}
             </DesktopDisplay>
             <TextContainer>
@@ -197,11 +214,10 @@ export const SearchResults = ({
         ) : (
           <EmptyState component={COMPONENT.RESULTS} />
         )}
-        {/* <p>Theses are the search results for "{searchTerm}"</p> */}
         <ul>
           {searchResult.map((movie) => {
             return (
-              <li className="searchResultsContainer">
+              <li className="searchResultsContainer" key={movie.imdbID}>
                 <DesktopDisplay>
                   {" "}
                   {movie.Poster !== "N/A" ? (
@@ -218,13 +234,9 @@ export const SearchResults = ({
                       />
                     </ImgContainer>
                   ) : (
-                    <ImgContainer>
-                      <Thumbnail
-                        source={NoteMinor}
-                        size="large"
-                        alt="Small document"
-                      />
-                    </ImgContainer>
+                    <NoPosterImgContainer>
+                      <Icon source={NoteMajor} color="subdued" />
+                    </NoPosterImgContainer>
                   )}
                 </DesktopDisplay>
                 <div className="searchResultsContainer__content">

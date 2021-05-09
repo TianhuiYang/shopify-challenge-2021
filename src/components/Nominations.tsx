@@ -54,7 +54,7 @@ export const Nominations = ({
         <ul>
           {nominationList.map((movie) => {
             return (
-              <li className="list-container">
+              <li className="list-container" key={movie.imdbID}>
                 <div className="list-container__nomination-content">
                   <h3>
                     <TextStyle variation="strong">

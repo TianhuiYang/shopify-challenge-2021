@@ -38,12 +38,26 @@ function App() {
     }
   };
 
+  const getUniqueMovies = (apiResponse: MovieSummaryModel[]) => {
+    let uniqueMovies: MovieSummaryModel[] = [];
+    apiResponse.map((movie) => {
+      if (
+        !uniqueMovies.some((uniqueMovie) => movie.imdbID === uniqueMovie.imdbID)
+      ) {
+        uniqueMovies.push(movie);
+      }
+      return uniqueMovies;
+    });
+    return uniqueMovies;
+  };
+
   const searchMovie = async (movie: string) => {
     setSearchError("");
     setIsLoading(true);
     const res = await getMovieByTitle(movie);
     if (res.Response === "True") {
-      setSearchResult(res.Search);
+      const uniqueSearchRes = getUniqueMovies(res.Search);
+      setSearchResult(uniqueSearchRes);
     } else {
       setSearchError(res.Error);
       setSearchResult([]);
