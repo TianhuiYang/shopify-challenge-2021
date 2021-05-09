@@ -228,7 +228,11 @@ export const SearchResults = ({
                   )}
                 </DesktopDisplay>
                 <div className="searchResultsContainer__content">
-                  <div className="searchResultsContainer__content__heading">
+                  <div
+                    className="searchResultsContainer__content__heading"
+                    onClick={() => setModalInformation(movie)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <TextStyle variation="strong">
                       {trimMovieTitle(movie.Title)}
                     </TextStyle>
