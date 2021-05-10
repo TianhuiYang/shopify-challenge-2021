@@ -25,28 +25,16 @@ const AppContainer = styled.div`
 function App() {
   const [searchResult, setSearchResult] = useState<MovieSummaryModel[]>([]);
   const [searchError, setSearchError] = useState<string>("");
-  const [nominationList, setNominationList] = useState<MovieSummaryModel[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleClearClick = (component: COMPONENT) => {
-    if (component === COMPONENT.NOMINATIONS) {
-      setNominationList([]);
-      editLocalStorage([]);
-    }
-    if (component === COMPONENT.RESULTS) {
-      setSearchResult([]);
-    }
-  };
 
   const getUniqueMovies = (apiResponse: MovieSummaryModel[]) => {
     let uniqueMovies: MovieSummaryModel[] = [];
-    apiResponse.map((movie) => {
+    apiResponse.forEach((movie) => {
       if (
         !uniqueMovies.some((uniqueMovie) => movie.imdbID === uniqueMovie.imdbID)
       ) {
         uniqueMovies.push(movie);
       }
-      return uniqueMovies;
     });
     return uniqueMovies;
   };
@@ -65,6 +53,7 @@ function App() {
     setIsLoading(false);
   };
 
+  const [nominationList, setNominationList] = useState<MovieSummaryModel[]>([]);
   const editNominationList = (
     movie: MovieSummaryModel,
     action: NOMINATION_ACTION
@@ -84,6 +73,16 @@ function App() {
 
   const showBanner = () => {
     return nominationList.length >= MAX_NOMINATION_LENGTH;
+  };
+
+  const handleClearClick = (component: COMPONENT) => {
+    if (component === COMPONENT.NOMINATIONS) {
+      setNominationList([]);
+      editLocalStorage([]);
+    }
+    if (component === COMPONENT.RESULTS) {
+      setSearchResult([]);
+    }
   };
 
   useEffect(() => {

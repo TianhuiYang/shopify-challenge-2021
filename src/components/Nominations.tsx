@@ -11,7 +11,10 @@ import React from "react";
 import { COMPONENT } from "../models/component.model";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
-import { MAX_TITLE_LENGTH_NOMINATION } from "../utils/constants";
+import {
+  MAX_NOMINATION_LENGTH,
+  MAX_TITLE_LENGTH_NOMINATION,
+} from "../utils/constants";
 import { EmptyState } from "./EmptyState";
 
 type SearchResultsProps = {
@@ -36,6 +39,13 @@ export const Nominations = ({
     return title;
   };
 
+  const nominationKeyword = () => {
+    return (
+      "nomination" +
+      (nominationList.length === MAX_NOMINATION_LENGTH - 1 ? "" : "s")
+    );
+  };
+
   return (
     <Layout.Section secondary>
       <Card
@@ -47,10 +57,13 @@ export const Nominations = ({
         }
         sectioned
       >
-        {!!nominationList.length ? null : (
+        {!!nominationList.length ? (
+          <p>
+            You have {5 - nominationList.length} {nominationKeyword()} left.
+          </p>
+        ) : (
           <EmptyState component={COMPONENT.NOMINATIONS} />
         )}
-        {/* <p>You have {5 - nominationList.length} nomination(s) left</p> */}
         <ul>
           {nominationList.map((movie) => {
             return (

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { COMPONENT } from "../models/component.model";
-import { EMPTY_NOMINATION, EMPTY_SEARCH } from "../utils/imagesLinks";
+import { EMPTY_NOMINATION, EMPTY_SEARCH } from "../utils/imageLinks";
 
 type EmptyStateProps = {
   component: COMPONENT;
@@ -14,6 +14,11 @@ const EmptyStateContainer = styled.div`
   text-align: center;
 `;
 
+const EmptyStateImg = styled.img`
+  max-width: 100px;
+  margin: 32px auto;
+`;
+
 export const EmptyState = ({ component }: EmptyStateProps) => {
   const headingKeyword =
     component === COMPONENT.NOMINATIONS ? "nominations" : "search results";
@@ -23,11 +28,7 @@ export const EmptyState = ({ component }: EmptyStateProps) => {
 
   return (
     <EmptyStateContainer>
-      <img
-        style={{ maxWidth: "100px", marginTop: "32px", marginBottom: "32px" }}
-        src={imageURL}
-        alt="Document icon"
-      />
+      <EmptyStateImg src={imageURL} alt="Document icon" />
       <p>{"Your " + headingKeyword + " will appear here."}</p>
     </EmptyStateContainer>
   );

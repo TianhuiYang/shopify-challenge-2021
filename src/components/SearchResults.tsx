@@ -209,7 +209,7 @@ export const SearchResults = ({
       >
         {!!searchResult.length ? (
           <MobileDisplay>
-            <Caption>Click the movie title to learn more.</Caption>
+            <p>Click the movie title to learn more.</p>
           </MobileDisplay>
         ) : (
           <EmptyState component={COMPONENT.RESULTS} />

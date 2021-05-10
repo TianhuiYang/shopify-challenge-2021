@@ -2,7 +2,7 @@
 
 **[Check out the hosted site here!](https://tianhui-yang-shopify.netlify.app/)**
 
-A movie nomination site for the annual [Shoppies](https://drive.google.com/file/d/1lzhtiEc0yEim3iZHBFw62brcj61VLBO-/view) awards 🏆. Built for the Shopify frontend challenge.
+A movie nomination site for the [Shoppies](https://drive.google.com/file/d/1lzhtiEc0yEim3iZHBFw62brcj61VLBO-/view) 🏆.
 
 ## Features
 
