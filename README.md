@@ -28,7 +28,7 @@ All required features have been implemented. These entail search, nomination, an
 
 ## Demo
 
-**Required Features:** search, nominate, remove nomination
+**Required Features:** search, nominate, remove nomination, banner
 
 ![Required Features](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/requiredFeatures.gif)
 
