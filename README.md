@@ -26,6 +26,20 @@ All required features have been implemented. These entail search, nomination, an
 - [Axios](https://github.com/axios/axios) for the [OMDb](http://www.omdbapi.com/) API requests
 - Netlify for hosting
 
+## Demo
+
+**Required Features:** search, nominate, remove nomination 
+![Required Features](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/requiredFeatures.gif)
+
+**Movie Info Modal**
+![Movie info modal](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/movieModal.gif)
+
+**Mobile Responsive Design**
+![Responsive design](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/responsiveScreen.gif)
+
+**Error Handling**
+![Error handling](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/errorHandling.gif)
+
 ## Installation
 
 To run the project locally, run the following commands:
