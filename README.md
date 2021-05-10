@@ -28,16 +28,20 @@ All required features have been implemented. These entail search, nomination, an
 
 ## Demo
 
-**Required Features:** search, nominate, remove nomination 
+**Required Features:** search, nominate, remove nomination
+
 ![Required Features](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/requiredFeatures.gif)
 
 **Movie Info Modal**
+
 ![Movie info modal](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/movieModal.gif)
 
 **Mobile Responsive Design**
+
 ![Responsive design](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/responsiveScreen.gif)
 
 **Error Handling**
+
 ![Error handling](https://github.com/TianhuiYang/shopify-dev-challenge-2021/blob/main/assets/errorHandling.gif)
 
 ## Installation
