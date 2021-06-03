@@ -104,7 +104,7 @@ export const MovieDetailsModal = ({
       <Modal.Section>
         <ModalContainer>
           {displayModalImage ? (
-            <ModalImg alt="Movie poster" src={movie.Poster} />
+            <ModalImg alt="Movie poster" src={fullMovie.Poster} />
           ) : (
             <NoPosterImgModal>
               <Icon source={NoteMajor} color="subdued" />
