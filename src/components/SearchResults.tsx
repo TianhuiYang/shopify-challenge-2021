@@ -78,7 +78,7 @@ export const SearchResults = ({
     imdbID: "",
   });
 
-  const setModalInformation = async (movie: MovieSummaryModel) => {
+  const setModalInformation = (movie: MovieSummaryModel) => {
     setShowModal(true);
     setMovieSummary(movie);
   };
@@ -107,7 +107,7 @@ export const SearchResults = ({
       <MovieDetailsModal
         editNominationList={editNominationList}
         disableNominateButton={disableNominateButton}
-        movieSummary={movieSummary}
+        movie={movieSummary}
         updateModalDisplay={updateModalDisplay}
         showModal={showModal}
       />

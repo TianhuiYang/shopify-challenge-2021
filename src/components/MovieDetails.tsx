@@ -13,7 +13,7 @@ type MovieDetailsProps = {
     action: NOMINATION_ACTION
   ) => void;
   disableNominateButton: (movie: MovieSummaryModel) => boolean;
-  movieSummary: MovieSummaryModel;
+  movie: MovieSummaryModel;
   updateModalDisplay: (action: MODAL_ACTION) => void;
   showModal: boolean;
 };
@@ -26,7 +26,6 @@ const ModalContainer = styled.div`
 
 const NoPosterImgModal = styled.div`
   width: 140px;
-  height: 100%;
   outline: 1px solid lightGrey;
   display: flex;
   flex-direction: column;
@@ -44,7 +43,7 @@ const ModalImg = styled.img`
 export const MovieDetailsModal = ({
   editNominationList,
   disableNominateButton,
-  movieSummary,
+  movie,
   updateModalDisplay,
   showModal,
 }: MovieDetailsProps) => {
@@ -78,34 +77,34 @@ export const MovieDetailsModal = ({
   });
 
   const modalOnAction = () => {
-    editNominationList(movieSummary, NOMINATION_ACTION.ADD);
+    editNominationList(movie, NOMINATION_ACTION.ADD);
     updateModalDisplay(MODAL_ACTION.CLOSE);
   };
 
   useEffect(() => {
     const getFullMovie = async () => {
-      setFullMovie(await getMovieByID(movieSummary.imdbID));
+      setFullMovie(await getMovieByID(movie.imdbID));
     };
 
     getFullMovie();
-    setDisplayModalImage(movieSummary.Poster !== "N/A");
-  }, [movieSummary]);
+    setDisplayModalImage(movie.Poster !== "N/A");
+  }, [movie]);
 
   return (
     <Modal
       open={showModal}
       onClose={() => updateModalDisplay(MODAL_ACTION.CLOSE)}
-      title={movieSummary.Title}
+      title={movie.Title}
       primaryAction={{
         content: "Nominate",
-        disabled: disableNominateButton(movieSummary),
+        disabled: disableNominateButton(movie),
         onAction: () => modalOnAction(),
       }}
     >
       <Modal.Section>
         <ModalContainer>
           {displayModalImage ? (
-            <ModalImg alt="Movie poster" src={movieSummary.Poster} />
+            <ModalImg alt="Movie poster" src={movie.Poster} />
           ) : (
             <NoPosterImgModal>
               <Icon source={NoteMajor} color="subdued" />
