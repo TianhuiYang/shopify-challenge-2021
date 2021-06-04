@@ -30,6 +30,10 @@ const NoPosterImgModal = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 520px) {
+    display: none;
+  }
 `;
 
 const ModalImg = styled.img`
