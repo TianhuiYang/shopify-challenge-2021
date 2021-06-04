@@ -176,6 +176,7 @@ const SearchResults = ({
                   <MobileDisplay>
                     <ButtonGroup>
                       <Button
+                        accessibilityLabel="Nominate"
                         size="slim"
                         primary
                         icon={PlusMinor}

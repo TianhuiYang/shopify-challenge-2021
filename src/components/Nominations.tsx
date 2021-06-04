@@ -78,6 +78,7 @@ const Nominations = ({
                 </div>
                 <ButtonGroup>
                   <Button
+                    accessibilityLabel="Remove nomination"
                     plain
                     size="slim"
                     icon={DeleteMinor}
