@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   Button,
@@ -9,14 +10,13 @@ import {
   TextStyle,
 } from "@shopify/polaris";
 import { NoteMajor, PlusMinor } from "@shopify/polaris-icons";
-import React, { useState } from "react";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
-import { MAX_NOMINATION_LENGTH, MAX_TITLE_LENGTH } from "../utils/constants";
-import { EmptyState } from "./EmptyState";
 import { COMPONENT } from "../models/component.model";
-import { MovieDetailsModal } from "./MovieDetails";
 import { MODAL_ACTION } from "../models/modal.model";
+import { MAX_NOMINATION_LENGTH, MAX_TITLE_LENGTH } from "../utils/constants";
+import EmptyState from "./EmptyState";
+import MovieDetailsModal from "./MovieDetails";
 
 type SearchResultsProps = {
   nominationList: MovieSummaryModel[];
@@ -63,7 +63,7 @@ const NoPosterImgContainer = styled.div`
   justify-content: center;
 `;
 
-export const SearchResults = ({
+const SearchResults = ({
   nominationList,
   editNominationList,
   searchResult,
@@ -195,3 +195,5 @@ export const SearchResults = ({
     </Layout.Section>
   );
 };
+
+export default SearchResults;

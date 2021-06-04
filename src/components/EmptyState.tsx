@@ -19,7 +19,7 @@ const EmptyStateImg = styled.img`
   margin: 32px auto;
 `;
 
-export const EmptyState = ({ component }: EmptyStateProps) => {
+const EmptyState = ({ component }: EmptyStateProps) => {
   const headingKeyword =
     component === COMPONENT.NOMINATIONS ? "nominations" : "search results";
 
@@ -33,3 +33,5 @@ export const EmptyState = ({ component }: EmptyStateProps) => {
     </EmptyStateContainer>
   );
 };
+
+export default EmptyState;

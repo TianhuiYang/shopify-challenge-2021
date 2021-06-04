@@ -1,3 +1,4 @@
+import React, { useCallback, useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -9,7 +10,6 @@ import {
   TextField,
 } from "@shopify/polaris";
 import { SearchMinor } from "@shopify/polaris-icons";
-import React, { useCallback, useState } from "react";
 
 type SearchBarProps = {
   searchMovie: (movie: string) => Promise<void>;
@@ -17,7 +17,7 @@ type SearchBarProps = {
   error: string;
 };
 
-export const SearchBar = ({
+const SearchBar = ({
   searchMovie,
   isLoading,
   error,
@@ -63,3 +63,5 @@ export const SearchBar = ({
     </Layout.Section>
   );
 };
+
+export default SearchBar;

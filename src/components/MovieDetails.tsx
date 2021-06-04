@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { MovieSummaryModel } from "../models/movie.model";
-import { Icon, Modal, TextContainer, TextStyle } from "@shopify/polaris";
-import { NOMINATION_ACTION } from "../models/nomination.model";
 import styled from "styled-components";
+import { Icon, Modal, TextContainer, TextStyle } from "@shopify/polaris";
 import { NoteMajor } from "@shopify/polaris-icons";
-import { getMovieByID } from "../services/movie.service";
+import { MovieSummaryModel } from "../models/movie.model";
+import { NOMINATION_ACTION } from "../models/nomination.model";
 import { MODAL_ACTION } from "../models/modal.model";
+import { getMovieByID } from "../services/movie.service";
 
 type MovieDetailsProps = {
   editNominationList: (
@@ -44,7 +44,7 @@ const ModalImg = styled.img`
   }
 `;
 
-export const MovieDetailsModal = ({
+const MovieDetailsModal = ({
   editNominationList,
   disableNominateButton,
   movie,
@@ -145,3 +145,5 @@ export const MovieDetailsModal = ({
     </Modal>
   );
 };
+
+export default MovieDetailsModal;

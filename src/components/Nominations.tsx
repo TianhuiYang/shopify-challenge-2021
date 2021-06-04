@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   ButtonGroup,
@@ -7,7 +8,6 @@ import {
   TextStyle,
 } from "@shopify/polaris";
 import { DeleteMinor } from "@shopify/polaris-icons";
-import React from "react";
 import { COMPONENT } from "../models/component.model";
 import { MovieSummaryModel } from "../models/movie.model";
 import { NOMINATION_ACTION } from "../models/nomination.model";
@@ -15,7 +15,7 @@ import {
   MAX_NOMINATION_LENGTH,
   MAX_TITLE_LENGTH_NOMINATION,
 } from "../utils/constants";
-import { EmptyState } from "./EmptyState";
+import EmptyState from "./EmptyState";
 
 type SearchResultsProps = {
   clearNominations: () => void;
@@ -26,7 +26,7 @@ type SearchResultsProps = {
   ) => void;
 };
 
-export const Nominations = ({
+const Nominations = ({
   clearNominations,
   nominationList,
   editNominationList,
@@ -94,3 +94,5 @@ export const Nominations = ({
     </Layout.Section>
   );
 };
+
+export default Nominations;

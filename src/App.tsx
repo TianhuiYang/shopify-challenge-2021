@@ -1,18 +1,18 @@
 import "./App.scss";
-import styled from "styled-components";
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Layout, Page } from "@shopify/polaris";
+import { MAX_NOMINATION_LENGTH } from "./utils/constants";
+import { editLocalStorage, localNominationList } from "./utils/localStorage";
 import { getMovieByTitle } from "./services/movie.service";
 import { MovieSummaryModel } from "./models/movie.model";
 import { NOMINATION_ACTION } from "./models/nomination.model";
-import { Layout, Page } from "@shopify/polaris";
-import { Banners } from "./components/Banner";
-import { Header } from "./components/Header";
-import { SearchBar } from "./components/SearchBar";
-import { MAX_NOMINATION_LENGTH } from "./utils/constants";
-import { SearchResults } from "./components/SearchResults";
-import { Nominations } from "./components/Nominations";
 import { COMPONENT } from "./models/component.model";
-import { editLocalStorage, localNominationList } from "./utils/localStorage";
+import Banners from "./components/Banner";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import SearchResults from "./components/SearchResults";
+import Nominations from "./components/Nominations";
 
 const AppContainer = styled.div`
   margin-top: 60px;

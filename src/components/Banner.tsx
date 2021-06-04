@@ -4,7 +4,7 @@ type BannerProps = {
   showBanner: boolean;
 };
 
-export const Banners = ({ showBanner }: BannerProps) => {
+const Banners = ({ showBanner }: BannerProps) => {
   if (showBanner) {
     return (
       <Layout.Section>
@@ -17,3 +17,5 @@ export const Banners = ({ showBanner }: BannerProps) => {
   }
   return null;
 };
+
+export default Banners;

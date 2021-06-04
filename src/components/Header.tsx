@@ -1,7 +1,7 @@
-import { DisplayText, Layout, TextContainer } from "@shopify/polaris";
 import React from "react";
+import { DisplayText, Layout, TextContainer } from "@shopify/polaris";
 
-export const Header = () => {
+const Header = () => {
   return (
     <Layout.Section>
       <div style={{ marginLeft: "12px", marginBottom: "12px" }}>
@@ -17,3 +17,5 @@ export const Header = () => {
     </Layout.Section>
   );
 };
+
+export default Header;
